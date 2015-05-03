@@ -27,7 +27,6 @@ var additions = additions || {};
         "applyToVector3Array",
         "determinant",
         "flattenToArrayOffset",
-        "getPosition",
         "getMaxScaleOnAxis",
         "decompose",
         "toArray"

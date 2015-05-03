@@ -66,8 +66,77 @@ QUnit.test("determinant", function(assert) {
     });
 });
 
+QUnit.test("flattenToArrayOffset", function(assert) {
+    testHelper(assert, function (threeExpected, additionsMatrix) {
+        var expectedArray = [];
+        var arr = [];
+        _(16).times(function () {
+            expectedArray.push(0);
+            arr.push(0);
+        });
+
+        threeExpected.flattenToArrayOffset(expectedArray, 0);
+        additionsMatrix.flattenToArrayOffset(arr, 0);
+
+        assert.deepEqual(arr, expectedArray, "flattenToArrayOffset behaviour should match THREE.Matrix4");
+    });
+});
+
+QUnit.test("getMaxScaleOnAxis", function(assert) {
+    testHelper(assert, function (threeExpected, additionsMatrix) {
+        var expected = threeExpected.getMaxScaleOnAxis();
+        var actual = additionsMatrix.getMaxScaleOnAxis();  
+        assert.deepEqual(actual, expected, "getMaxScaleOnAxis behaviour should match THREE.Matrix4");
+    });
+});
+
+QUnit.test("decompose", function(assert) {
+    testHelper(assert, function (threeExpected, additionsMatrix) {
+        var expectedTranslation = new THREE.Vector3();
+        var expectedRotation = new THREE.Quaternion();
+        var expectedScale = new THREE.Vector3();
+
+        var actualTranslation = new THREE.Vector3();
+        var actualRotation = new THREE.Quaternion();
+        var actualScale = new THREE.Vector3();
+
+        threeExpected.decompose(expectedTranslation, expectedRotation, expectedScale);
+        additionsMatrix.decompose(actualTranslation, actualRotation, actualScale);  
+        
+        assert.deepEqual(
+            vectorAsArray(actualTranslation),
+            vectorAsArray(expectedTranslation),
+            "decompose translation should match THREE.Matrix4 behaviour"
+        );
+
+        assert.deepEqual(
+            quaternionAsArray(actualRotation),
+            quaternionAsArray(expectedRotation),
+            "decompose rotation should match THREE.Matrix4 behaviour"
+        );
+
+        assert.deepEqual(
+            vectorAsArray(actualScale),
+            vectorAsArray(expectedScale),
+            "decompose scale should match THREE.Matrix4 behaviour"
+        );
+    });
+});
+
+QUnit.test("toArray", function(assert) {
+    testHelper(assert, function (threeExpected, additionsMatrix) {
+        var expected = threeExpected.toArray();
+        var actual = additionsMatrix.toArray();  
+        assert.deepEqual(actual, expected, "toArray behaviour should match THREE.Matrix4");
+    });
+});
+
 function vectorAsArray(vector) {
     return [vector.x, vector.y, vector.z];
+}
+
+function quaternionAsArray(q) {
+    return [q.x, q.y, q.z, q.w];
 }
 
 function testHelper(assert, testFunc) {
