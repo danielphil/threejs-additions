@@ -42,7 +42,6 @@ var additions = additions || {};
         "identity",
         "makeBasis",
         "makeRotationFromEuler",
-        "setRotationFromQuaternion",
         "makeRotationFromQuaternion",
         "lookAt",
         "multiplyMatrices",
