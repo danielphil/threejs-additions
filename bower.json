@@ -1,8 +1,12 @@
 {
   "name": "threejs-additions",
-  "version": "0.0.0",
+  "version": "0.0.1",
   "authors": [
     "Daniel Phillips <dphildev@gmail.com>"
+  ],
+  "keywords": [
+    "three.js",
+    "matrix"
   ],
   "description": "Some simple helpers for working with three.js",
   "moduleType": [
@@ -13,12 +17,14 @@
     "**/.*",
     "node_modules",
     "bower_components",
-    "test",
-    "tests"
+    "tests.html",
+    "tests.js"
   ],
   "dependencies": {
-    "qunit": "~1.18.0",
-    "threejs": "*",
+    "threejs": "r71",
     "underscore": "~1.8.3"
+  },
+  "devDependencies": {
+    "qunit": "~1.18.0"
   }
 }
