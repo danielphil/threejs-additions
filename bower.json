@@ -4,6 +4,9 @@
   "authors": [
     "Daniel Phillips <dphildev@gmail.com>"
   ],
+  "main": [
+    "additions.js"
+  ],
   "keywords": [
     "three.js",
     "matrix"
