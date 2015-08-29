@@ -56,7 +56,8 @@ var additions = additions || {};
         "makeFrustum",
         "makePerspective",
         "makeOrthographic",
-        "fromArray"
+        "fromArray",
+        "getInverse"
     ];
     _(standaloneFunctions).each(function (name) {
         additions.Matrix4[name] = function () {
@@ -75,7 +76,8 @@ var additions = additions || {};
         "multiplyScalar",
         "transpose",
         "setPosition",
-        "scale"
+        "scale",
+        "getInverse"
     ];
     _(newMatrixFunctions).each(function (name) {
         additions.Matrix4.prototype[name] = function () {
@@ -86,11 +88,7 @@ var additions = additions || {};
     });
 
     // Special case for matrix inverse
-    additions.Matrix4.prototype.getInverse = function (other) {
-        if (other instanceof additions.Matrix4) {
-            other = other.matrix;
-        }
-
-        return new additions.Matrix4((new THREE.Matrix4()).getInverse(other));
+    additions.Matrix4.prototype.getInverse = function () {
+        return new additions.Matrix4((new THREE.Matrix4()).getInverse(this.matrix));
     };
 })();

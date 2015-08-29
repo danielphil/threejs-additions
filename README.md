@@ -30,6 +30,7 @@ These functions should be called on an existing ```additions.Matrix4``` instance
  * ```extractPosition```
  * ```copyPosition```
  * ```extractRotation```
+ * ```getInverse```
  * ```multiply```
  * ```multiplyScalar```
  * ```transpose```
@@ -37,21 +38,22 @@ These functions should be called on an existing ```additions.Matrix4``` instance
  * ```scale```
 
 These functions can be called directly without creating an ```additions.Matrix4``` first.
- * ``` additions.Matrix4.identity```
- * ``` additions.Matrix4.makeBasis```
- * ``` additions.Matrix4.makeRotationFromEuler```
- * ``` additions.Matrix4.makeRotationFromQuaternion```
- * ``` additions.Matrix4.lookAt```
- * ``` additions.Matrix4.multiplyMatrices```
- * ``` additions.Matrix4.multiplyToArray```
- * ``` additions.Matrix4.makeTranslation```
- * ``` additions.Matrix4.makeRotationX```
- * ``` additions.Matrix4.makeRotationY```
- * ``` additions.Matrix4.makeRotationZ```
- * ``` additions.Matrix4.makeRotationAxis```
- * ``` additions.Matrix4.makeScale```
- * ``` additions.Matrix4.compose```
- * ``` additions.Matrix4.makeFrustum```
- * ``` additions.Matrix4.makePerspective```
- * ``` additions.Matrix4.makeOrthographic```
- * ``` additions.Matrix4.fromArray```
+ * ```additions.Matrix4.identity```
+ * ```additions.Matrix4.getInverse```
+ * ```additions.Matrix4.makeBasis```
+ * ```additions.Matrix4.makeRotationFromEuler```
+ * ```additions.Matrix4.makeRotationFromQuaternion```
+ * ```additions.Matrix4.lookAt```
+ * ```additions.Matrix4.multiplyMatrices```
+ * ```additions.Matrix4.multiplyToArray```
+ * ```additions.Matrix4.makeTranslation```
+ * ```additions.Matrix4.makeRotationX```
+ * ```additions.Matrix4.makeRotationY```
+ * ```additions.Matrix4.makeRotationZ```
+ * ```additions.Matrix4.makeRotationAxis```
+ * ```additions.Matrix4.makeScale```
+ * ```additions.Matrix4.compose```
+ * ```additions.Matrix4.makeFrustum```
+ * ```additions.Matrix4.makePerspective```
+ * ```additions.Matrix4.makeOrthographic```
+ * ```additions.Matrix4.fromArray```

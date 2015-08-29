@@ -297,6 +297,24 @@ QUnit.test("makePerspective", function(assert) {
     });
 });
 
+QUnit.test("getInverse", function(assert) {
+    var m = (new THREE.Matrix4()).makeRotationY(-Math.PI / 4);
+    
+    standaloneTestHelper(assert, function (newThreeMatrix) {
+        return [
+            newThreeMatrix.getInverse(m),
+            additions.Matrix4.getInverse(m)
+        ];
+    });
+    
+    standaloneTestHelper(assert, function (newThreeMatrix) {
+        return [
+            newThreeMatrix.getInverse(m),
+            (new additions.Matrix4(m)).getInverse()
+        ];
+    });
+});
+
 QUnit.test("makeOrthographic", function(assert) {
     standaloneTestHelper(assert, function (newThreeMatrix) {
         return [
