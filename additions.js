@@ -82,7 +82,7 @@ var additions = additions || {};
     _(newMatrixFunctions).each(function (name) {
         additions.Matrix4.prototype[name] = function () {
             var newMatrix = newCopy(this.matrix);
-            newMatrix[name].apply(this.newMatrix, arguments);
+            newMatrix[name].apply(newMatrix, arguments);
             return new additions.Matrix4(newMatrix);
         }
     });
