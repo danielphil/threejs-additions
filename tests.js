@@ -334,6 +334,11 @@ QUnit.test("fromArray", function(assert) {
     });
 });
 
+QUnit.test("constructorGuard", function(assert) {
+    var newMatrix = additions.Matrix4();
+    assert.ok(newMatrix instanceof additions.Matrix4);
+});
+
 function vectorAsArray(vector) {
     return [vector.x, vector.y, vector.z];
 }

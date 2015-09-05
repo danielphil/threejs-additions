@@ -2,6 +2,11 @@ var additions = additions || {};
 
 (function () {
     additions.Matrix4 = function (threejsMatrix) {
+        if (!(this instanceof additions.Matrix4)) {
+            // http://stackoverflow.com/questions/1606797/use-of-apply-with-new-operator-is-this-possible
+            return new (Function.prototype.bind.apply(additions.Matrix4, arguments));
+        }
+        
         if (arguments.length > 1) {
             // If we've got more than one argument, set the values of the matrix directly
             this.matrix = new THREE.Matrix4();
