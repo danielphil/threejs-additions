@@ -336,7 +336,10 @@ QUnit.test("fromArray", function(assert) {
 
 QUnit.test("constructorGuard", function(assert) {
     var newMatrix = additions.Matrix4();
-    assert.ok(newMatrix instanceof additions.Matrix4);
+    assert.ok(
+        newMatrix instanceof additions.Matrix4,
+        "Calling Matrix4 without new should still create a new Matrix4"
+    );
 });
 
 function vectorAsArray(vector) {

@@ -96,4 +96,26 @@ var additions = additions || {};
     additions.Matrix4.prototype.getInverse = function () {
         return new additions.Matrix4((new THREE.Matrix4()).getInverse(this.matrix));
     };
+    
+    additions.Matrix4.prototype.toString = function () {
+        printMatrix(this);
+    };
+    
+    function printMatrix(m) {
+        var e = m.elements;
+        console.log(
+            e[0] + "\t" + e[4] + '\t' + e[8] + '\t' + e[12] + '\n' +
+            e[1] + "\t" + e[5] + '\t' + e[9] + '\t' + e[13] + '\n' +
+            e[2] + "\t" + e[6] + '\t' + e[10] + '\t' + e[14] + '\n' +
+            e[3] + "\t" + e[7] + '\t' + e[11] + '\t' + e[15]
+        );
+    }
+    
+    additions.print = function(obj) {
+        if (obj instanceof THREE.Matrix4) {
+            printMatrix(obj);
+        } else if (obj instanceof additions.Matrix4) {
+            printMatrix(obj.matrix);
+        }
+    };
 })();
