@@ -4,7 +4,7 @@ Some helpful utilities for working with three.js
 ## additions.Matrix4
 A simple wrapper around ```THREE.Matrix4``` which provides an alternative API for working with matrices in an immutable way instead of the in-place modification functions included in three.js.
 
-```additions.Matrix4``` objects contain an ```elements``` property, so they can be used in many cases where a ```THREE.Matrix4``` is required.
+```additions.Matrix4``` objects contain an ```elements``` property, so they can be used in many cases where a ```THREE.Matrix4``` is required. If you need the underlying ```THREE.Matrix4``` that ```additions.Matrix4``` wraps, this can be obtained with the ```matrix``` property.
 
 All functions simply forward onto the equivalent ```THREE.Matrix4``` function, so see the three.js documentation for more information on what they do.
 
@@ -12,24 +12,30 @@ All functions simply forward onto the equivalent ```THREE.Matrix4``` function, s
 
 ```javascript
 var identity = new additions.Matrix4();
+var identity2 = additions.Matrix4();
+
 var copyFromThreeJsMatrix = new additions.Matrix4(myThreeJsMatrix);
-var matrixFromElements = new additions.Matrix4(1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16); 
+var copyFromThreeJsMatrix = additions.Matrix4(myThreeJsMatrix);
+
+var matrixFromElements = new additions.Matrix4(1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16);
+var matrixFromElements = additions.Matrix4(1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16);
 ```
 
-### Functions
+### Matrix Functions
 These functions should be called on an existing ```additions.Matrix4``` instance:
  * ```extractBasis```
+ * ```getInverse```
  * ```applyToVector3Array```
  * ```determinant```
  * ```flattenToArrayOffset```
  * ```getMaxScaleOnAxis```
  * ```decompose```
  * ```toArray```
-
+ * ```extractRotation```
+ 
 These functions should be called on an existing ```additions.Matrix4``` instance. They return a new ```additions.Matrix4``` which contains the result of the operation and they leave the original matrix unchanged.
  * ```extractPosition```
  * ```copyPosition```
- * ```extractRotation```
  * ```getInverse```
  * ```multiply```
  * ```multiplyScalar```
@@ -40,7 +46,6 @@ These functions should be called on an existing ```additions.Matrix4``` instance
 These functions can be called directly without creating an ```additions.Matrix4``` first.
  * ```additions.Matrix4.identity```
  * ```additions.Matrix4.extractRotation```
- * ```additions.Matrix4.getInverse```
  * ```additions.Matrix4.makeBasis```
  * ```additions.Matrix4.makeRotationFromEuler```
  * ```additions.Matrix4.makeRotationFromQuaternion```
@@ -58,3 +63,7 @@ These functions can be called directly without creating an ```additions.Matrix4`
  * ```additions.Matrix4.makePerspective```
  * ```additions.Matrix4.makeOrthographic```
  * ```additions.Matrix4.fromArray```
+
+### Utility Functions
+ * ```additions.print(matrix)```: Call with a ```THREE.Matrix4``` or ```additions.Matrix4``` to pretty-print the matrix to the debug console.
+ 

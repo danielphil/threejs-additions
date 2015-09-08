@@ -4,7 +4,7 @@ var additions = additions || {};
     additions.Matrix4 = function (threejsMatrix) {
         if (!(this instanceof additions.Matrix4)) {
             // http://stackoverflow.com/questions/1606797/use-of-apply-with-new-operator-is-this-possible
-            return new (Function.prototype.bind.apply(additions.Matrix4, arguments));
+            return new (Function.prototype.bind.apply(additions.Matrix4, _.flatten([{}, arguments])));
         }
         
         if (arguments.length > 1) {
@@ -44,7 +44,6 @@ var additions = additions || {};
 
     // Functions which don't require a source matrix
     var standaloneFunctions = [
-        "extractRotation",
         "identity",
         "makeBasis",
         "makeRotationFromEuler",
@@ -62,8 +61,7 @@ var additions = additions || {};
         "makeFrustum",
         "makePerspective",
         "makeOrthographic",
-        "fromArray",
-        "getInverse"
+        "fromArray"
     ];
     _(standaloneFunctions).each(function (name) {
         additions.Matrix4[name] = function () {
@@ -77,7 +75,6 @@ var additions = additions || {};
     var newMatrixFunctions = [
         "extractPosition",
         "copyPosition",
-        "extractRotation",
         "multiply",
         "multiplyScalar",
         "transpose",
@@ -89,6 +86,28 @@ var additions = additions || {};
         additions.Matrix4.prototype[name] = function () {
             var newMatrix = newCopy(this.matrix);
             newMatrix[name].apply(newMatrix, arguments);
+            return new additions.Matrix4(newMatrix);
+        }
+    });
+    
+    // Functions that require two matrices: [this] and a single input argument.
+    // If the user doesn't provide an input argument, then we use [this] as the
+    // input and identity as the matrix to operate on
+    var newMatrixFunctions = [
+        "extractRotation"
+    ];
+    _(newMatrixFunctions).each(function (name) {
+        additions.Matrix4.prototype[name] = function () {
+            var newMatrix;
+            var inputMatrix;
+            if (_.isEmpty(arguments)) {
+                newMatrix = new THREE.Matrix4();
+                inputMatrix = this.matrix;
+            } else {
+                newMatrix = newCopy(this.matrix);
+                inputMatrix = arguments[0];
+            }
+            newMatrix[name].apply(newMatrix, [inputMatrix]);
             return new additions.Matrix4(newMatrix);
         }
     });

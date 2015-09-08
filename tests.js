@@ -297,14 +297,14 @@ QUnit.test("makePerspective", function(assert) {
     });
 });
 
-QUnit.test("extractRotationStandalone", function(assert) {
+QUnit.test("extractRotation", function(assert) {
     var rotation = new THREE.Matrix4();
     rotation.makeRotationFromEuler(new THREE.Euler(0, 1, 1.57, 'XYZ'));
     
     standaloneTestHelper(assert, function (newThreeMatrix) {
         return [
             newThreeMatrix.extractRotation(rotation),
-            additions.Matrix4.extractRotation(rotation)
+            additions.Matrix4(rotation).extractRotation()
         ];
     });
 });
@@ -315,14 +315,7 @@ QUnit.test("getInverse", function(assert) {
     standaloneTestHelper(assert, function (newThreeMatrix) {
         return [
             newThreeMatrix.getInverse(m),
-            additions.Matrix4.getInverse(m)
-        ];
-    });
-    
-    standaloneTestHelper(assert, function (newThreeMatrix) {
-        return [
-            newThreeMatrix.getInverse(m),
-            (new additions.Matrix4(m)).getInverse()
+            additions.Matrix4(m).getInverse()
         ];
     });
 });
