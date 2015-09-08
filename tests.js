@@ -297,6 +297,18 @@ QUnit.test("makePerspective", function(assert) {
     });
 });
 
+QUnit.test("extractRotationStandalone", function(assert) {
+    var rotation = new THREE.Matrix4();
+    rotation.makeRotationFromEuler(new THREE.Euler(0, 1, 1.57, 'XYZ'));
+    
+    standaloneTestHelper(assert, function (newThreeMatrix) {
+        return [
+            newThreeMatrix.extractRotation(rotation),
+            additions.Matrix4.extractRotation(rotation)
+        ];
+    });
+});
+
 QUnit.test("getInverse", function(assert) {
     var m = (new THREE.Matrix4()).makeRotationY(-Math.PI / 4);
     

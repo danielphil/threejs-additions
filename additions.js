@@ -44,6 +44,7 @@ var additions = additions || {};
 
     // Functions which don't require a source matrix
     var standaloneFunctions = [
+        "extractRotation",
         "identity",
         "makeBasis",
         "makeRotationFromEuler",

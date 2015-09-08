@@ -39,6 +39,7 @@ These functions should be called on an existing ```additions.Matrix4``` instance
 
 These functions can be called directly without creating an ```additions.Matrix4``` first.
  * ```additions.Matrix4.identity```
+ * ```additions.Matrix4.extractRotation```
  * ```additions.Matrix4.getInverse```
  * ```additions.Matrix4.makeBasis```
  * ```additions.Matrix4.makeRotationFromEuler```
