@@ -73,8 +73,6 @@ var additions = additions || {};
 
     // Functions that include the current matrix as an input
     var newMatrixFunctions = [
-        "extractPosition",
-        "copyPosition",
         "multiply",
         "multiplyScalar",
         "transpose",
@@ -94,7 +92,9 @@ var additions = additions || {};
     // If the user doesn't provide an input argument, then we use [this] as the
     // input and identity as the matrix to operate on
     var newMatrixFunctions = [
-        "extractRotation"
+        "extractRotation",
+        "extractPosition",
+        "copyPosition"
     ];
     _(newMatrixFunctions).each(function (name) {
         additions.Matrix4.prototype[name] = function () {
