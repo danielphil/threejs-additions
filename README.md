@@ -12,13 +12,11 @@ All functions simply forward onto the equivalent ```THREE.Matrix4``` function, s
 
 ```javascript
 var identity = new additions.Matrix4();
-var identity2 = additions.Matrix4();
 
 var copyFromThreeJsMatrix = new additions.Matrix4(myThreeJsMatrix);
-var copyFromThreeJsMatrix = additions.Matrix4(myThreeJsMatrix);
+var copyFromAdditionsMatrix = new additions.Matrix4(myAdditionsMatrix);
 
 var matrixFromElements = new additions.Matrix4(1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16);
-var matrixFromElements = additions.Matrix4(1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16);
 ```
 
 ### Matrix Functions

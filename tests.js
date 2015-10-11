@@ -371,7 +371,7 @@ QUnit.test("multiply", function (assert) {
     var additionsResult = m1.multiply(m2);
     assert.deepEqual(additionsResult.elements, threeResult.elements, "Expect multiply to provide same result as three Matrix");
     
-    var additionsResult = m1.multiply(m2.matrix);
+    additionsResult = m1.multiply(m2.matrix);
     assert.deepEqual(additionsResult.elements, threeResult.elements, "Multiply should accept a three Matrix as an input");
 });
 
