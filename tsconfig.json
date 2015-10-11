@@ -1,0 +1,15 @@
+{
+    "compilerOptions": {
+        "module": "commonjs",
+        "noImplicitAny": true,
+        "removeComments": true,
+        "preserveConstEnums": true,
+        "out": "build/additions.js",
+        "sourceMap": true,
+        "declaration": true,
+        "noEmitOnError": true
+    },
+    "files": [
+        "src/additions.ts"
+    ]
+}

@@ -1,3 +1,4 @@
+/// <reference path="build/additions.d.ts" />
 QUnit.module("Matrix4");
 
 QUnit.test("Creation", function(assert) {
@@ -181,8 +182,8 @@ QUnit.test("lookAt", function(assert) {
 
 QUnit.test("multiplyMatrices", function(assert) {
     standaloneTestHelper(assert, function (newThreeMatrix) {
-        var m1 = new additions.Matrix4.makeTranslation(1, 2, 3);
-        var m2 = new additions.Matrix4.makeRotationX(Math.PI / 4);
+        var m1 = additions.Matrix4.makeTranslation(1, 2, 3);
+        var m2 = additions.Matrix4.makeRotationX(Math.PI / 4);
         return [
             newThreeMatrix.multiplyMatrices(m1, m2),
             additions.Matrix4.multiplyMatrices(m1, m2)
@@ -192,12 +193,12 @@ QUnit.test("multiplyMatrices", function(assert) {
 
 QUnit.test("multiplyToArray", function(assert) {
     standaloneTestHelper(assert, function (newThreeMatrix) {
-        var m1 = new additions.Matrix4.makeTranslation(1, 2, 3);
-        var m2 = new additions.Matrix4.makeRotationX(Math.PI / 4);
+        var m1 = additions.Matrix4.makeTranslation(1, 2, 3);
+        var m2 = additions.Matrix4.makeRotationX(Math.PI / 4);
         var a1 = [];
         var a2 = [];
 
-        result = [
+        var result = [
             newThreeMatrix.multiplyToArray(m1, m2, a1),
             additions.Matrix4.multiplyToArray(m1, m2, a2)
         ];
@@ -304,7 +305,19 @@ QUnit.test("extractRotation", function(assert) {
     standaloneTestHelper(assert, function (newThreeMatrix) {
         return [
             newThreeMatrix.extractRotation(rotation),
-            additions.Matrix4(rotation).extractRotation()
+            additions.Matrix4.extractRotation(rotation)
+        ];
+    });
+});
+
+QUnit.test("copyPosition", function(assert) {
+    var position = new THREE.Matrix4();
+    position.makeTranslation(1, 2, 3);
+    
+    standaloneTestHelper(assert, function (newThreeMatrix) {
+        return [
+            newThreeMatrix.copyPosition(position),
+            additions.Matrix4.copyPosition(position)
         ];
     });
 });
@@ -345,6 +358,67 @@ QUnit.test("constructorGuard", function(assert) {
         newMatrix instanceof additions.Matrix4,
         "Calling Matrix4 without new should still create a new Matrix4"
     );
+});
+
+QUnit.test("multiply", function (assert) {
+    var m1 = additions.Matrix4.makeTranslation(2, 4, 6);
+    var m2 = additions.Matrix4.makeRotationFromEuler(new THREE.Euler(0, 1, 1.57, 'XYZ'));
+    
+    var threeResult = new THREE.Matrix4();
+    threeResult.copy(m1.matrix);
+    threeResult.multiply(m2);
+    
+    var additionsResult = m1.multiply(m2);
+    assert.deepEqual(additionsResult.elements, threeResult.elements, "Expect multiply to provide same result as three Matrix");
+    
+    var additionsResult = m1.multiply(m2.matrix);
+    assert.deepEqual(additionsResult.elements, threeResult.elements, "Multiply should accept a three Matrix as an input");
+});
+
+QUnit.test("multiplyScalar", function (assert) {
+    var m1 = additions.Matrix4.makeRotationFromEuler(new THREE.Euler(0, 1, 1.57, 'XYZ'));
+    
+    var threeResult = new THREE.Matrix4();
+    threeResult.copy(m1.matrix);
+    threeResult.multiplyScalar(42);
+    
+    var additionsResult = m1.multiplyScalar(42);
+    assert.deepEqual(additionsResult.elements, threeResult.elements, "Expect multiplyScalar to provide same result as three Matrix");
+});
+
+QUnit.test("transpose", function (assert) {
+    var m1 = additions.Matrix4.makeRotationFromEuler(new THREE.Euler(0, 1, 1.57, 'XYZ'));
+    
+    var threeResult = new THREE.Matrix4();
+    threeResult.copy(m1.matrix);
+    threeResult.transpose();
+    
+    var additionsResult = m1.transpose();
+    assert.deepEqual(additionsResult.elements, threeResult.elements, "Expect transpose to provide same result as three Matrix");
+});
+
+QUnit.test("setPosition", function (assert) {
+    var m1 = additions.Matrix4.makeRotationFromEuler(new THREE.Euler(0, 1, 1.57, 'XYZ'));
+    var pos = new THREE.Vector3(4, 7, -1);
+    
+    var threeResult = new THREE.Matrix4();
+    threeResult.copy(m1.matrix);
+    threeResult.setPosition(pos);
+    
+    var additionsResult = m1.setPosition(pos);
+    assert.deepEqual(additionsResult.elements, threeResult.elements, "Expect position to provide same result as three Matrix");
+});
+
+QUnit.test("scale", function (assert) {
+    var m1 = additions.Matrix4.makeRotationFromEuler(new THREE.Euler(0, 1, 1.57, 'XYZ'));
+    var scale = new THREE.Vector3(4, 7, -1);
+    
+    var threeResult = new THREE.Matrix4();
+    threeResult.copy(m1.matrix);
+    threeResult.scale(scale);
+    
+    var additionsResult = m1.scale(scale);
+    assert.deepEqual(additionsResult.elements, threeResult.elements, "Expect scale to provide same result as three Matrix");
 });
 
 function vectorAsArray(vector) {
